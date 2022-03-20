@@ -12,7 +12,7 @@ def get_valid_word():
     return random_word
 
 
-def hangman():
+def hangman(user_letter):
     word = get_valid_word()
     word = ''.join(word).upper()  # converts the list word into a string for upper()
     print(word)
@@ -20,6 +20,23 @@ def hangman():
     alphabet = set(string.ascii_uppercase)  # list of letters in alphabet
     used_letters = set()  # list of used letters during game
 
+    if user_letter in alphabet - used_letters: # Checking already used words
+        used_letters.add(user_letter)
+        if user_letter in word_letters:
+            word_letters.remove(user_letter)
+    else:
 
+i = True
+user_input = ""
+while i is not False:
+    user_input = input("Please enter one letter:").upper()
+    if user_input.isdigit():
+        print("Please enter a letter!!!")
+    elif len(user_input) > 1:
+        print("Please enter ONE letter!")
+    elif user_input.isalpha():
+        print("Here we go!")
+    else:
+        print("Whatever try again!")
 
-
+hangman(user_input)
