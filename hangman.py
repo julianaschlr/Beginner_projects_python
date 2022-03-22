@@ -19,10 +19,10 @@ def hangman():
     word_letters = set(word)  # letters in the word
     alphabet = set(string.ascii_uppercase) # list of letters in alphabet
     used_letters = set()  # list of used letters during game
-
-    while len(word) > 0:
+    lives = 6
+    while len(word_letters) > 0 and lives > 0:
         # tell the user which letters he already used
-        print(f"Your have guessed these letters:", ' '.join(used_letters))
+        print(f"You have {lives} lives left. Your have guessed these letters:", ' '.join(used_letters))
 
         # print what the current word is:
         word_list = [user_letter if user_letter in used_letters else '-' for user_letter in word]
@@ -33,10 +33,20 @@ def hangman():
             used_letters.add(user_letter)
             if user_letter in word_letters:
                 word_letters.remove(user_letter)
+            else:
+                lives = lives - 1
+                print("This letter is not in the word")
         elif user_letter in used_letters:
-            print("you already used this letter.Try again!")
+            print("You already used this letter.Try again!")
         else:
             print("This char is not a or ONE letter. Try again!")
+
+    if lives > 0:
+        print('---------------------------')
+        print(f"you have guessed {word}! You win!")
+    else:
+        print('---------------------------')
+        print("sorry you lost the game...")
 
 
 question = input("Do you wanna play a game? y = Yes or n = No").lower()
